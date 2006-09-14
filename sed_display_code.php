@@ -8,7 +8,7 @@ $plugin['description'] = 'Allows presentation of a code listing (from a file) in
 
 $plugin['type'] = 0; // 0 = regular plugin; public only, 1 = admin plugin; public + admin, 2 = library
 
-@include_once('zem_tpl.php');
+@include_once('../zem_tpl.php');
 
 if (0) {
 ?>
