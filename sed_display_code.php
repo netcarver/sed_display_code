@@ -2,7 +2,7 @@
 
 $plugin['name'] = 'sed_display_code';
 $plugin['version'] = '0.6';
-$plugin['author'] = 'Stephen Dickinson';
+$plugin['author'] = 'Netcarver';
 $plugin['author_uri'] = 'http://txp-plugins.netcarving.com';
 $plugin['description'] = 'Allows presentation of a code listing (from a file) in your articles.';
 
@@ -62,13 +62,13 @@ The plugin can take the following attributes&#8230;
 | *'dir'*      | *'files'*     | *Optional* | Directory to use to look for file. *Note the change from the old default value of 'code'. If you were relying on this old default value, please add 'dir="code"' to your tag call. * |
 | *'list_type'*  | *'table'*       | *Optional* | *Choose which underlying structure will be used for your code listing.* Valid values: 'table' or 'ol'. The default value is 'table' because it has better browser support and validates in more @doctypes@ than ordered lists with variable start/end lines. |
 | 'list_text'  | 'Listing'     | Optional | Text used to tag the title of the listing. Set this to '' to omit the title. |
-| 'list_no'    | ''            | Optional | Any non-empty value will be placed after the list_text variable in the title. | 
+| 'list_no'    | ''            | Optional | Any non-empty value will be placed after the list_text variable in the title. |
 | 'class'      |'sed_dc_wrap'  | Optional | Class to use in marking up the wraptag. |
 | 'wraptag'	   | 'div'         | Optional | Name of the tag to use to wrap the listing. |
 | 'link_text'  | 'Download this code.' | Optional | Text to use when printing the download option (set to '' to disable download.) |
 | 'link_title' | 'Downloads the above listing as a text file.' | Optional | Text used to title the download link (if enabled.) |
 | *'show_count'* | *''*        | *Optional* | *Omit or leave blank to prevent the download count from being shown. Otherwise, supply the string that will prefix the download count.* |
-| 'start'      | '1'           | Optional | The line of the text file to start the listing from. (Omit to start from the beginning.) | 
+| 'start'      | '1'           | Optional | The line of the text file to start the listing from. (Omit to start from the beginning.) |
 | 'end'        | ''            | Optional | The last line of the text file to display. (Omit to list to the end of the file.) |
 | 'highlight1' | '-1'          | Optional | List of line numbers to tag with highlight class 1. (Omit to tag no lines). |
 | 'highlight2' | '-1'          | Optional | List of line numbers to tag with highlight class 1. (Omit to tag no lines). |
@@ -90,7 +90,7 @@ h3. Basic use.
 Looks for 'foo.txt' in the default code directory (\code) from the site root. If it exists, it will display a <code><div></code> with the default title line, the listing body and the default download link.
 *NOTE:* If the file is called 'foo.txt', *don't* write file="foo.txt", *do* write file="foo".
 
-If your file is called bar.c and is in 'c files' then simply prepare bar.c.txt (must have .txt at the end of the filename) in that directory and use: 
+If your file is called bar.c and is in 'c files' then simply prepare bar.c.txt (must have .txt at the end of the filename) in that directory and use:
 <code><txp:sed_display_code dir='c files' file='bar.c' /></code>
 
 h3. Wrap tag and class.
@@ -165,7 +165,7 @@ div.sed_dc_wrap {
 	overflow: hidden;
 }
 table.sed_dc {
-	border-collapse:collapse; 
+	border-collapse:collapse;
 	width:99%;
 }
 table.sed_dc caption, p.sed_dc {
@@ -185,8 +185,8 @@ p.sed_dc {
 	font-variant: small-caps;
 }
 table.sed_dc tr {
-	vertical-align:top; 
-	background: white none; 
+	vertical-align:top;
+	background: white none;
 	overflow: hidden;
 }
 table.sed_dc tr.odd { background: #e6e6fa none; }
@@ -234,7 +234,7 @@ v0.4 April 23rd, 2006.
 
 v0.3 April 22nd, 2006.
 
-* Changed the markup generated for the colgroup columns from "id" to "class" so that the tag can be used many times on the same page without triggering a validation warning of multiple instances of the same id. 
+* Changed the markup generated for the colgroup columns from "id" to "class" so that the tag can be used many times on the same page without triggering a validation warning of multiple instances of the same id.
 
 v0.2 March 28th, 2006.
 
@@ -279,7 +279,7 @@ abstract class _sed_listing_generator {
 	protected $highlight_classes = '';
 	protected $tab_class = '';
 	protected $stripe_class = '';
-	
+
 	//
 	// Common vars...
 	//
@@ -289,7 +289,7 @@ abstract class _sed_listing_generator {
 	protected $use_highlights = false;
 	protected $dir = '';
 	protected $file = '';
-	
+
 	//
 	//	List heading vars...
 	//
@@ -298,12 +298,12 @@ abstract class _sed_listing_generator {
 	protected $list_class = '';
 	protected $sum_text = '';
 	protected $default_title_string = '';
-	
+
 	//
 	//	Download link vars...
 	//
 	protected $default_link_string = '';
-	
+
 	protected function count_initial_tabs($string) {
 		// output variable...
 		$out_tabs			= 0;
@@ -341,7 +341,7 @@ abstract class _sed_listing_generator {
 			$this->highlight3_array = explode( ',', $highlight3 );
 			}
 		}
-	
+
 	public function set_title( $file, $dir, $list_text, $list_num, $list_class, $sum_text ) {
 		$this->dir = $dir;
 		$this->file = $file;
@@ -349,7 +349,7 @@ abstract class _sed_listing_generator {
 		$this->list_num = $list_num;
 		$this->list_class = $list_class;
 		$this->sum_text = $sum_text;
-		
+
 		if( !empty($list_text) )	{
 			if( !empty($list_num) )
 				$this->default_title_string = $list_text.' '.$list_num.': '.$file;
@@ -357,11 +357,11 @@ abstract class _sed_listing_generator {
 				$this->default_title_string = $list_text.': '.$file;
 			}
 		}
-		
+
 	public function set_link( $link_text, $link_title, $show_count , $full_filename) {
 		global $prefs, $siteurl;
-		
-		//		
+
+		//
 		// add in the link to the file if necessary
 		//
 		if( !empty($link_text) ) {
@@ -377,20 +377,20 @@ abstract class _sed_listing_generator {
 				}
 			else {
 				//
-				//	Retain the original link code as it allows title attribute whereas the 
-				// core routine doesn't		
+				//	Retain the original link code as it allows title attribute whereas the
+				// core routine doesn't
 				//
 				$this->default_link_string = doTag( ("<a href=\"http://".$siteurl.'/'.$this->dir.'/'.$this->file.".txt\" title=\"".$link_title."\">".$link_text."</a>"), 'p', $this->list_class )."\n";
 				}
 			}
 
 		}
-		
+
 	protected function set_css_classes_and_prep_line( $line_number, $line ) {
 		//
 		//	clean up the line ending and encode for html display.
 		//
-		$line = htmlspecialchars( rtrim($line) );	
+		$line = htmlspecialchars( rtrim($line) );
 
 		//
 		// Process tabs at the start of the line...
@@ -402,15 +402,15 @@ abstract class _sed_listing_generator {
 		// Mark-up odd lines to allow for striped tables in the style sheet...
 		//
 		$this->stripe_class = '';
-		if( 1==($line_number & 1) ) 
+		if( 1==($line_number & 1) )
 			$this->stripe_class = 'odd';
-		
+
 		//
 		// Is this line in the highlight arrays?
 		//
 		$this->highlight_classes = '';
 		if( $this->use_highlights ) {
-			if( in_array( $line_number, $this->highlight1_array ) ) 
+			if( in_array( $line_number, $this->highlight1_array ) )
 				$this->highlight_classes .= ' hi1';
 			if( in_array( $line_number, $this->highlight2_array ) )
 				$this->highlight_classes .= ' hi2';
@@ -436,7 +436,7 @@ abstract class _sed_listing_generator {
 
 		return $line;
 		}
-		
+
 	abstract function add_line( $line_number, $line );
 	abstract function dump_listing( $wraptag, $class );
 	abstract function identify();
@@ -446,7 +446,7 @@ abstract class _sed_listing_generator {
 class _sed_table_generator extends _sed_listing_generator {
 	protected $line_numbers = true;
 
-	private function generate_row( $wrap , $line_num , $line , $row_class , $line_cell_class ) 
+	private function generate_row( $wrap , $line_num , $line , $row_class , $line_cell_class )
 		{
 		if( $this->line_numbers )
 			$pv_line_num_cell = doTag( $line_num, $wrap, '' );
@@ -457,8 +457,8 @@ class _sed_table_generator extends _sed_listing_generator {
 		return doTag( $pv_line_num_cell.$pv_line_cell, 'tr', $row_class )."\n";
 		}
 
-	public function identify() { 
-		return '_sed_table_generator'; 
+	public function identify() {
+		return '_sed_table_generator';
 		}
 
 	public function set_options( $options )
@@ -466,10 +466,10 @@ class _sed_table_generator extends _sed_listing_generator {
 		if( array_key_exists( 'line_nums' , $options ) )
 			$this->line_numbers = ('0' == $options['line_nums'] ) ? false : true ;
 		}
-		
+
 	public function add_line( $line_number, $line )	{
 		$line = $this->set_css_classes_and_prep_line( $line_number, $line );
-		
+
 		//
 		//	Prep the line number...
 		//
@@ -513,12 +513,12 @@ class _sed_table_generator extends _sed_listing_generator {
 		//	Put the table parts together...
 		//
 		$result 	 = doTag( "\n".$caption.$colgroup.$header.$body, 'table', $this->list_class, ' summary="'.$this->sum_text.' '.$this->file.'"' )."\n";
-	
+
 		//
 		//	Add in the download link (if any!)...
 		//
 		$result .= $this->default_link_string;
-	
+
 		//
 		//	Wrap up the whole bundle and return it...
 		//
@@ -530,9 +530,9 @@ class _sed_table_generator extends _sed_listing_generator {
 //----- Specializations for ORDERED LIST (OL) output. ------
 class _sed_ol_generator extends _sed_listing_generator {
 	protected $first_line_number = -1;
-	
-	public function identify() { 
-		return '_sed_ol_generator'; 
+
+	public function identify() {
+		return '_sed_ol_generator';
 		}
 
 	public function set_options( $options )
@@ -542,7 +542,7 @@ class _sed_ol_generator extends _sed_listing_generator {
 
 	public function add_line( $line_number, $line )	{
 		$line = $this->set_css_classes_and_prep_line( $line_number, $line );
-		
+
 		//
 		//	On first call, record the line number for later use in kick-starting the OL listing at the correct number...
 		//
@@ -558,7 +558,7 @@ class _sed_ol_generator extends _sed_listing_generator {
 		else
 //			$line_classes = $this->stripe_class;
 			$line_classes = $this->stripe_class.' '.$this->tab_class;
-		
+
 		//
 		//	Add an <li></li> entry for this source line...
 		//
@@ -593,7 +593,7 @@ class _sed_ol_generator extends _sed_listing_generator {
 		//	Append the download link (if any)...
 		//
 		$result .= $this->default_link_string;
-		
+
 		//
 		//	Wrap the whole bundle up and return it...
 		//
@@ -601,7 +601,7 @@ class _sed_ol_generator extends _sed_listing_generator {
 		return $result;
 		}
 	}
-	
+
 //----- Creates a listing generator of the correct type -----
 function _sed_generator_factory( $list_type )	{
 	switch( $list_type ) {
@@ -612,10 +612,10 @@ function _sed_generator_factory( $list_type )	{
 	$generator = new $class_name;
 	return $generator;
 	}
-	
-	
+
+
 // ================== CLIENT-SIDE TAGS FOLLOW ===================
-	
+
 function sed_display_code($atts)	{
 	$result = "";
 
@@ -624,12 +624,12 @@ function sed_display_code($atts)	{
 	$default_path = substr( $prefs['file_base_path'] , $offset );
 
 	// process attribute variables...
-	extract( lAtts( array( 
+	extract( lAtts( array(
 		'file'		=> '',				// Needed: Name of the file to process.
 		'dir'		=> $default_path,  	// Optional: Directory to use to look for file.
 		'list_type' => 'table',
 		'list_text' => 'Listing', 		// Optional: Text used to tag the title of the listing. Set this to '' to omit the title.
-		'list_no' 	=> '',				// Optional: Any non-empty value will be placed after the list_text variable in the title. 
+		'list_no' 	=> '',				// Optional: Any non-empty value will be placed after the list_text variable in the title.
 		'show_count'=> '',
 		'listclass' => 'sed_dc',
 		'errorclass'=> 'sed_dc_error',
@@ -660,11 +660,11 @@ function sed_display_code($atts)	{
 			$start = 1;
 		}
 	if( !is_numeric( $end ) )
-		$end = 1000000;	
+		$end = 1000000;
 	else {
 		$end = intval( $end );
 		if( ($end < 0) || ($end < $start) )
-			$end = 1000000;	
+			$end = 1000000;
 		}
 
 	//
@@ -676,19 +676,19 @@ function sed_display_code($atts)	{
 	$generator->prep_highlights( $highlight1 , $highlight2 , $highlight3 );
 	$generator->set_title( $file, $dir, $list_text, $list_no, $listclass, $sum_text );
 	$generator->set_link ( $link_text, $link_title, $show_count , $pv_filename );
-	
+
 	//
 	// Open the file and get it into an array of lines...
 	//
 	$file_content = file($pv_filename);
 	if ( false == $file_content )
 		return "<p class=\"".$errorclass."\"><strong>".$pv_filename." ".$err_text."</strong></p>";
-	
+
 //	$line_count = count( $file_content );
 	$end = min( $end, count( $file_content ) );
-	for ($i=($start-1); $i < $end; $i++) 
-		$generator->add_line( ($i+1) , $file_content[$i] ); 
-		
+	for ($i=($start-1); $i < $end; $i++)
+		$generator->add_line( ($i+1) , $file_content[$i] );
+
 //	$result = $generator->dump_listing( $wraptag, $class );
 //	return $result;
 	return $generator->dump_listing( $wraptag, $class );
