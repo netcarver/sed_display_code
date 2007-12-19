@@ -1,12 +1,23 @@
 <?php
 
+$plugin['revision'] = '$LastChangedRevision$';
+
+$revision = @$plugin['revision'];
+if( !empty( $revision ) )
+	{
+	$parts = explode( ' ' , trim( $revision , '$' ) );
+	$revision = $parts[1];
+	if( !empty( $revision ) )
+		$revision = '.' . $revision;
+	}
+
 $plugin['name'] = 'sed_display_code';
-$plugin['version'] = '0.6';
+$plugin['version'] = '0.6' . $revision;
 $plugin['author'] = 'Netcarver';
 $plugin['author_uri'] = 'http://txp-plugins.netcarving.com';
 $plugin['description'] = 'Allows presentation of a code listing (from a file) in your articles.';
 
-$plugin['type'] = 0; // 0 = regular plugin; public only, 1 = admin plugin; public + admin, 2 = library
+$plugin['type'] = 0;
 
 @include_once('../zem_tpl.php');
 
