@@ -1,0 +1,5 @@
+*sed_display_code*
+
+Released under the GPLv2 licence.
+
+An old plugin for "textpattern":http://textpattern.com
